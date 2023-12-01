@@ -23,13 +23,13 @@ var (
 /* This struct represents a location, typically a city. */
 type Location struct {
 	// Name of a location
-	City    string
-	State   string
-	Country string
+	City    string  `json:"name"`
+	State   string  `json:"state"`
+	Country string  `json:"country"`
 
 	// Coordinates (S and W are negative)
-	Lat     float64
-	Lon     float64
+	Lat     float64 `json:"lat"`
+	Lon     float64 `json:"lon"`
 }
 
 /* Estimates distance [km] to another location. */
