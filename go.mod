@@ -1,3 +1,3 @@
-module github.com/Zedran/uv
+module github.com/Zedran/geoloc
 
 go 1.18
