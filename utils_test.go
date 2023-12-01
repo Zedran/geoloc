@@ -2,9 +2,10 @@ package geoloc
 
 import "testing"
 
-/* Tests whether coordinates are converted properly. Badly formatted string values
- * and those exceeding the assumed limit should trigger an error.
- */
+/*
+	Tests whether coordinates are converted properly. Badly formatted string values
+	and those exceeding the assumed limit should trigger an error.
+*/
 func TestConvertCoordinate(t *testing.T) {
 	const limit float64 = 90
 

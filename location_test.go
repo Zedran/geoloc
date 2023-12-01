@@ -2,10 +2,10 @@ package geoloc
 
 import "testing"
 
-/* This test aims to check whether the specified string is properly formed
- * into the Location struct by SpecifyLocation function. It does not check
- * coordinate conversion.
- */
+/*
+	This test aims to check whether the specified string is properly formed into the Location struct by SpecifyLocation function.
+	It does not check coordinate conversion.
+*/
 func TestSpecifyLocation(t *testing.T) {
 	correctCases := map[string]Location {
 		"London, GB, 51.508, -0.128"     : {"London",  "", "GB",  51.508,  -0.128},
