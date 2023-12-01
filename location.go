@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
 	"math"
 	"net/http"
 	"strings"
@@ -85,8 +84,6 @@ func FindLocation(client *http.Client, keyOW, locName string, maxRespLocs int) (
 
 	err = json.NewDecoder(resp.Body).Decode(&matches)
 	if err != nil {
-		stream, _ := io.ReadAll(resp.Body)
-		fmt.Print(string(stream))
 		return nil, err
 	} else if len(matches) == 0 {
 		return nil, errLocationNotFound
