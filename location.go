@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-// Default maximum number of matches returned from the Geocoding API
+// Default maximum number of matches requested from the Geocoding API
 const DEFAULT_MAX_RESP_LOCS int = 10
 
 var (
