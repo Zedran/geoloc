@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	// Maximum number of matches returned from the Geocoding API
-	MAX_RESP_LOCS     int    = 10
+	// Default maximum number of matches returned from the Geocoding API
+	DEFAULT_MAX_RESP_LOCS int = 10
 
 	// A template URL for querying the Geocoding API
 	OPEN_WEATHER_URL  string = "https://api.openweathermap.org/geo/1.0/direct?q=%s&limit=%d&appid=%s"
@@ -66,9 +66,16 @@ func (loc *Location) Overlaps(loc2 *Location) bool {
 	return loc.City == loc2.City && loc.DistanceTo(loc2) <= OVERLAPPING_D
 }
 
-/* Queries the OpenWeather Geocoding API for the name specified by locName and returns a slice containing matching location names. */
-func FindLocation(client *http.Client, keyOW, locName string) ([]Location, error) {
-	resp, err := client.Get(fmt.Sprintf(OPEN_WEATHER_URL, locName, MAX_RESP_LOCS, keyOW))
+/*
+	Queries the OpenWeather Geocoding API for the name specified by locName and returns a slice containing matching location names.
+	maxRespLocs limits the number of matches requested from API. If maxRespLocs is equal or less than 0, it is set to DEFAULT_MAX_RESP_LOCS.
+*/
+func FindLocation(client *http.Client, keyOW, locName string, maxRespLocs int) ([]Location, error) {
+	if maxRespLocs <= 0 {
+		maxRespLocs = DEFAULT_MAX_RESP_LOCS
+	}
+
+	resp, err := client.Get(fmt.Sprintf(OPEN_WEATHER_URL, locName, maxRespLocs, keyOW))
 	if err != nil {
 		return nil, err
 	}
