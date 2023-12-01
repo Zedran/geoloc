@@ -9,13 +9,8 @@ import (
 	"strings"
 )
 
-const (
-	// Default maximum number of matches returned from the Geocoding API
-	DEFAULT_MAX_RESP_LOCS int = 10
-
-	// A template URL for querying the Geocoding API
-	OPEN_WEATHER_URL  string = "https://api.openweathermap.org/geo/1.0/direct?q=%s&limit=%d&appid=%s"
-)
+// Default maximum number of matches returned from the Geocoding API
+const DEFAULT_MAX_RESP_LOCS int = 10
 
 var (
     // This error is returned by GetLocation if the Geocoding API does not provide any result for the query
@@ -70,6 +65,9 @@ func (loc *Location) Overlaps(loc2 *Location) bool {
 	maxRespLocs limits the number of matches requested from API. If maxRespLocs is equal or less than 0, it is set to DEFAULT_MAX_RESP_LOCS.
 */
 func FindLocation(client *http.Client, keyOW, locName string, maxRespLocs int) ([]Location, error) {
+	// A template URL for querying the Geocoding API
+	const OPEN_WEATHER_URL string = "https://api.openweathermap.org/geo/1.0/direct?q=%s&limit=%d&appid=%s"
+
 	if maxRespLocs <= 0 {
 		maxRespLocs = DEFAULT_MAX_RESP_LOCS
 	}
