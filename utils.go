@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-var errCoordinateOverflow    error  = errors.New("coordinate value out of range")
+var errCoordinateOverflow error = errors.New("coordinate value out of range")
 
 /*
 	Converts geographical coordinate from string to float. Errors are returned in case of parsing problems 
