@@ -6,19 +6,13 @@ import (
 	"fmt"
 	"math"
 	"net/http"
-	"strings"
 )
 
 // Default maximum number of matches requested from the Geocoding API
 const DEFAULT_MAX_RESP_LOCS int = 10
 
-var (
-    // This error is returned by GetLocation if the Geocoding API does not provide any result for the query
-    errLocationNotFound error = errors.New("location not found")
-
-	// The error raised if the user-specified location (-l) is improperly structured
-	errLocStringInvalid error = errors.New("improper structure of the specified location")
-)
+// This error is returned by GetLocation if the Geocoding API does not provide any result for the query
+var errLocationNotFound error = errors.New("location not found")
 
 /* This struct represents a location, typically a city. */
 type Location struct {
@@ -116,46 +110,4 @@ func RemoveOverlappingLocations(matches []Location) []Location {
 	}
 
 	return locations
-}
-
-/* Converts the string specified with the -l flag into the Location struct. */
-func SpecifyLocation(locString string) (*Location, error) {
-	separated := strings.Split(locString, ",")
-
-	if len(separated) != 4 {
-		return nil, errLocStringInvalid
-	}
-
-	for i := range separated {
-		separated[i] = strings.TrimSpace(separated[i])
-	}
-
-	var (
-		err error
-		loc Location
-	)
-
-	if len(separated[0]) == 0 {
-		loc.City = "Unknown"
-	} else {
-		loc.City = separated[0]
-	}
-
-	if len(separated[1]) == 0 {
-		loc.Country = "N/A"
-	} else {
-		loc.Country = separated[1]
-	}
-	
-	loc.Lat, err = ConvertCoordinate(separated[2], 90)
-	if err != nil {
-		return nil, err
-	}
-
-	loc.Lon, err = ConvertCoordinate(separated[3], 180)
-	if err != nil {
-		return nil, err
-	}
-
-	return &loc, nil
 }
